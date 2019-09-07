@@ -43,7 +43,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>{
 
 
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         TextView verse;
         TextView location;
 
@@ -51,12 +51,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>{
             super(itemView);
             verse = itemView.findViewById(R.id.cardverse);
             location = itemView.findViewById(R.id.cardverselocation);
-            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
-        @Override
+      /*  @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
+*/
+        @Override
+        public boolean onLongClick(View v) {
+            if (mClickListener != null) mClickListener.onItemClick(v, getAdapterPosition());
+            return true;
         }
     }
 

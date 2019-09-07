@@ -20,4 +20,6 @@ public class VerseViewModel extends AndroidViewModel {
 
     public void insert(Verse verse) { mRepository.insert(verse); }
 
+    public void deleteByLocation(String location){mRepository.deleteByLocation(location);}
+
 }

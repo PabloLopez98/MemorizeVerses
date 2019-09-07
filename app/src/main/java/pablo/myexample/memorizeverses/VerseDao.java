@@ -17,4 +17,7 @@ public interface VerseDao {
 
     @Query("DELETE FROM verse_table")
     void deleteAll();
+
+    @Query("DELETE FROM verse_table WHERE location = :location")
+    abstract void deleteByLocation(String location);
 }

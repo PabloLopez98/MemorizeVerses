@@ -1,11 +1,13 @@
 package pablo.myexample.memorizeverses;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -49,7 +51,21 @@ public class SavedVerses extends AppCompatActivity implements CardAdapter.ItemCl
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + cardAdapter.getItem(position).getLocation().toString() + " on row number " + position, Toast.LENGTH_SHORT).show();
+    public void onItemClick(View view, final int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Verse")
+                .setMessage("Are you sure you want to delete this verse?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        verseViewModel.deleteByLocation(cardAdapter.getItem(position).getLocation().toString());
+                        theList.remove(position);
+                        cardAdapter.notifyDataSetChanged();
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

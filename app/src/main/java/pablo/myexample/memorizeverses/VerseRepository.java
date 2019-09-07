@@ -21,8 +21,12 @@ public class VerseRepository {
     }
 
 
-    public void insert (Verse verse) {
+    public void insert(Verse verse) {
         new insertAsyncTask(verseDao).execute(verse);
+    }
+
+    public void deleteByLocation(String location) {
+        new deleteByLocationAsyncTask(verseDao).execute(location);
     }
 
 
@@ -41,4 +45,18 @@ public class VerseRepository {
         }
     }
 
+    private static class deleteByLocationAsyncTask extends AsyncTask<String, Void, Void> {
+
+        private VerseDao mAsyncTaskDao;
+
+        deleteByLocationAsyncTask(VerseDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final String... params) {
+            mAsyncTaskDao.deleteByLocation(params[0]);
+            return null;
+        }
+    }
 }

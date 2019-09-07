@@ -22,7 +22,11 @@ public abstract class VerseRoomDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (VerseRoomDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), VerseRoomDatabase.class, "verse_database").addCallback(sRoomDatabaseCallback).allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), VerseRoomDatabase.class, "verse_database")
+                            //.addCallback(sRoomDatabaseCallback)
+                            .allowMainThreadQueries()
+                            //.fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }
@@ -48,7 +52,7 @@ public abstract class VerseRoomDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
 
-            //This code deletes all the data after every startup, we dont want that in the release!!!
+            //This code deletes all the data after every startup, we don't want this in the release!!!
             //verseDao.deleteAll();
 
             return null;
